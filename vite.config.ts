@@ -1,5 +1,6 @@
 // Standard TanStack Start + Vite setup for the ShelfLife web app.
 // Explicit plugin list — nothing implicit or hidden.
+import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
