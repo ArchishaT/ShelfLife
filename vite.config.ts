@@ -1,29 +1,36 @@
-// Standard TanStack Start + Vite setup for the ShelfLife web app.
-// Explicit plugin list — nothing implicit or hidden.
-import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import { nitro } from "nitro/vite";
 import viteReact from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
 import tsConfigPaths from "vite-tsconfig-paths";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   server: {
     port: 5173,
   },
+
   plugins: [
     tsConfigPaths({
       projects: ["./tsconfig.json"],
     }),
+
     tailwindcss(),
+
     tanstackStart({
-      // Where the SSR server entry lives — see src/server.ts.
-      server: { entry: "server" },
+      server: {
+        entry: "server",
+      },
     }),
+
+    nitro({
+      preset: "vercel",
+    }),
+
     viteReact(),
   ],
 });
-
-// Note: Nitro's build target defaults to Cloudflare here. If you're deploying
-// somewhere else (Vercel, Node, Netlify), set that explicitly — see
+// Note: The Nitro build target is set to Vercel for deployment. If you're
+// deploying somewhere else (Cloudflare, Node, Netlify), change the preset
+// accordingly — see
 // https://tanstack.com/start/latest/docs/framework/react/hosting
